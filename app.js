@@ -22,6 +22,8 @@ const multer = require('multer');
 var upload = multer();
 const bodyParser = require('body-parser');
 const app = express();
+app.set('trust proxy', 1 /* number of proxies between user and server */);
+app.get('/ip', (request, response) => response.send(request.ip));
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
