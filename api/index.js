@@ -6,7 +6,7 @@ process.on('uncaughtException', (err) => {
 const app = require('../app');
 //database
 const mongoose = require('mongoose');
-const DB = process.env.DATABASE.replace(
+const DB = process.env.MONGODB_URI.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
