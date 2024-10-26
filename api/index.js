@@ -1,10 +1,8 @@
-const dotenv = require('dotenv');
 process.on('uncaughtException', (err) => {
   console.error(err.name, err.message);
   console.error('uncaughtException shuting down');
   process.exit(1);
 });
-dotenv.config({ path: './config.env' });
 const app = require('../app');
 //database
 const mongoose = require('mongoose');
