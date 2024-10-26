@@ -11,7 +11,9 @@ const signToken = (userID) => {
   });
 };
 const createSentToken = (user, statusCode, res) => {
+  console.log('e');
   const token = signToken(user._id);
+  console.log('f');
   res.cookie('JWT', token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
@@ -19,6 +21,8 @@ const createSentToken = (user, statusCode, res) => {
     secure: process.env.NODE_ENV === 'production' ? true : false,
     httpOnly: true,
   });
+  console.log('g');
+
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -47,15 +51,19 @@ exports.login = catchAsync(async (req, res, next) => {
   // 2- user exist  password is correct
   // 3- if everything is ok , sned
 
+  console.log('a');
   const { email } = req.body;
   const { password } = req.body;
   if (!email || !password) {
     return next(new appError('please provide email and passord', 400));
   }
+  console.log('b');
   const user = await User.findOne({ email }).select('+password');
+  console.log('c');
   if (!user || !user.correctPaasword(password, user.password)) {
     return next(new appError('Incorrect email or passord', 400));
   }
+  console.log('d');
 
   createSentToken(user, 201, res);
 });
